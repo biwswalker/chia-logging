@@ -36,6 +36,7 @@ app.use('/api/v1', v1)
 // });
 
 app.listen(5000, () => {
-  console.log('Start server at port 5000.')
-  logs()
+  console.log('Start server...')
+  console.log('listen chia log.')
+  logs.listen()
 })
