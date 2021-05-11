@@ -14,13 +14,15 @@ const listen = () => {
             const data_info = splited[1]
             const time = types_info[0]
             const types = types_info[1]
-            const sub_type = types_info[3]
+            const sub_type = types_info[2]
             if (types === 'farmer') {
                 console.log(`FARMER: ${sub_type} | ${data_info}`)
             } else if (types === 'harvester') {
                 console.log(`HARVESTER: ${sub_type} | ${data_info}`)
             } else if (types === 'wallet') {
                 console.log(`WALLET: ${sub_type} | ${data_info}`)
+            } else {
+                // console.log(`WALLET: ${sub_type} | ${data_info}`)
             }
         } else {
             console.log(data.split(': INFO').map(text => text.trim()))
