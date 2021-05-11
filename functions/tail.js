@@ -20,9 +20,8 @@ const listen = () => {
             if (types === 'farmer') {
                 console.log(`FARMER: ${sub_type} | ${data_info}`)
             } else if (types === 'harvester') {
-                console.log('sub_type')
                 if (_.isEqual(sub_type.trim(), 'chia.harvester.harvester')) {
-                    console.log(`FARMING: ${moment(time).format('DD MM YYYY ::: HH:mm:ss')} ${sub_type} | ${data_info}`)
+                    console.log(`FARM HARVESTER: ${moment(time).format('DD MM YYYY ::: HH:mm:ss')} ${sub_type} | ${data_info}`)
                 } else {
                     console.log(`HARVESTER: ${sub_type} | ${data_info}`)
                 }
