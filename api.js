@@ -4,7 +4,6 @@ const path = require("path")
 const helmet = require('helmet')
 const rateLimit = require("express-rate-limit")
 // const gat_dashboard = require('./scrape')
-const v1 = require('./v1')
 const logs = require('./functions/tail')
 const app = express()
 const server = http.createServer(app)
@@ -23,8 +22,19 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public'));
 
-// Router
-app.use('/api/v1', v1)
+app.get('/api/v1/unlisten-log', (req, res) => {
+  console.log('unlisten.')
+  logs.unlisten()
+  res.status(200).json({ status: 'Unlistened.' })
+})
+
+app.get('/api/v1/listen-log', (req, res) => {
+  console.log('unlisten.')
+  logs.unlisten()
+  console.log('listen.')
+  logs.listen()
+  res.status(200).json({ status: 'Listened.' })
+})
 
 // app.get('/', function (req, res) {
 // const { ploting_data, plot_count, capacity, ttw } = ({ ploting_data: [[1, 2, 3], [4, 5, 6]], plot_count: 0, capacity: 0, ttw: 0 })
