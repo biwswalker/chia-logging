@@ -7,7 +7,12 @@ const tail = new Tail(`${root_path}/.chia/mainnet/log/debug.log`)
 
 const listen = () => {
     tail.on("line", function (data) {
-        console.log(data.split(': INFO').map(text => text.trim()))
+        const splited = data.split(': INFO').map(text => text.trim())
+        if (splited.length > 0) {
+            console.log(splited[0].split(' '), splited[1])
+        } else {
+            console.log(data.split(': INFO').map(text => text.trim()))
+        }
     })
     tail.on("error", function (error) {
         console.log('ERROR: ', error)
