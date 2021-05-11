@@ -1,5 +1,6 @@
 const Tail = require('tail').Tail
 const path = require('path')
+const moment = require('moment')
 
 const root_path = process.cwd().split(path.sep, 3).join('/')
 console.log(`root: ${root_path}/.chia/mainnet/log/debug.log`)
@@ -18,7 +19,11 @@ const listen = () => {
             if (types === 'farmer') {
                 console.log(`FARMER: ${sub_type} | ${data_info}`)
             } else if (types === 'harvester') {
-                console.log(`HARVESTER: ${sub_type} | ${data_info}`)
+                if(sub_type === 'chia.harvester.harvester') {
+                    console.log(`FARMING: ${ moment(time).format('DD MM YYYY ::: HH:mm:ss')} ${sub_type} | ${data_info}`)
+                } else {
+                    console.log(`HARVESTER: ${sub_type} | ${data_info}`)
+                }
             } else if (types === 'wallet') {
                 console.log(`WALLET: ${sub_type} | ${data_info}`)
             } else {
