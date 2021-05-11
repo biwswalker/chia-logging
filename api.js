@@ -3,7 +3,8 @@ const http = require('http')
 const path = require("path")
 const helmet = require('helmet')
 const rateLimit = require("express-rate-limit")
-const gat_dashboard = require('./scrape')
+// const gat_dashboard = require('./scrape')
+const v1 = require('./v1')
 
 const app = express()
 const server = http.createServer(app)
@@ -22,14 +23,17 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public'));
 
-app.get('/', function (req, res) {
-  // const { ploting_data, plot_count, capacity, ttw } = ({ ploting_data: [[1, 2, 3], [4, 5, 6]], plot_count: 0, capacity: 0, ttw: 0 })
-  // res.render('dashboard.html', { ploting_data, plot_count, capacity, ttw })
+// Router
+app.use('/api/v1', v1)
 
-  gat_dashboard().then(({ ploting_data, plot_count, capacity, ttw }) => {
-    res.render('dashboard.html', { ploting_data, plot_count, capacity, ttw })
-  })
-});
+// app.get('/', function (req, res) {
+// const { ploting_data, plot_count, capacity, ttw } = ({ ploting_data: [[1, 2, 3], [4, 5, 6]], plot_count: 0, capacity: 0, ttw: 0 })
+// res.render('dashboard.html', { ploting_data, plot_count, capacity, ttw })
+
+// gat_dashboard().then(({ ploting_data, plot_count, capacity, ttw }) => {
+//   res.render('dashboard.html', { ploting_data, plot_count, capacity, ttw })
+// })
+// });
 
 app.listen(5000, () => {
   console.log('Start server at port 5000.')
