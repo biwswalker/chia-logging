@@ -1,15 +1,16 @@
 const Tail = require('tail').Tail
+const path = require('path')
 
 const tailing_log = () => {
-    const tail = new Tail('/home/biwswalker/.chia/mainet/log/debug.log');
+    const root_path = process.cwd().split(path.sep, 3).join('/')
 
+    const tail = new Tail(`${root_path}/.chia/mainnet/log/debug.log`);
     tail.on("line", function (data) {
         console.log(data);
-    });
-
+    })
     tail.on("error", function (error) {
-        console.log('ERROR: ', error);
-    });
+        console.log('ERROR: ', error)
+    })
 }
 
 module.exports = tailing_log

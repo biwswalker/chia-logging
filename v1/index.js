@@ -3,7 +3,7 @@ const observelog = require('../functions/tail')
 const router = express.Router()
 
 router.get('/getalllog', function (req, res) {
-    observelog()
+    // observelog()
     res.status(200).json({ status: 'requested.' })
 })
 

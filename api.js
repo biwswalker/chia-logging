@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const rateLimit = require("express-rate-limit")
 // const gat_dashboard = require('./scrape')
 const v1 = require('./v1')
-
+const logs = require('./functions/tail')
 const app = express()
 const server = http.createServer(app)
 
@@ -37,4 +37,5 @@ app.use('/api/v1', v1)
 
 app.listen(5000, () => {
   console.log('Start server at port 5000.')
+  logs()
 })
