@@ -20,13 +20,22 @@ const listen = () => {
             if (types === 'farmer') {
                 console.log(`FARMER: ${sub_type} | ${data_info}`)
             } else if (types === 'harvester') {
-                if (_.isEqual(sub_type.trim(), 'chia.harvester.harvester')) {
+                if (_.isEqual(sub_type, 'chia.harvester.harvester')) {
                     console.log(`FARM HARVESTER: ${moment(time).format('DD MM YYYY ::: HH:mm:ss')} ${sub_type} | ${data_info}`)
                 } else {
                     console.log(`HARVESTER: ${sub_type} | ${data_info}`)
                 }
             } else if (types === 'wallet') {
                 console.log(`WALLET: ${sub_type} | ${data_info}`)
+                if (_.isEqual(sub_type, 'chia.wallet.wallet_state_manager')) {
+                    if (data_info.includes('Confirmed balance amount is')) {
+                        const wallet_balance = data_info.split('Confirmed balance amount is')[1]
+                        // Wallet amount
+                        console.log('-----WALLET----- : ', wallet_balance)
+                    }
+                } else if (_.isEqual(sub_type, 'chia.wallet.wallet_blockchain')) {
+                    console.log('-----BLOCKCHAIN----- : ', data_info)
+                }
             } else {
                 // console.log(`WALLET: ${sub_type} | ${data_info}`)
             }
