@@ -9,7 +9,6 @@ const listen = () => {
     tail.on("line", function (data) {
         const splited = data.split(': INFO').map(text => text.trim())
         if (splited.length > 0) {
-            console.log(splited[0].split(' '), splited[1])
             const types_info = splited[0].split(' ')
             const data_info = splited[1]
             if(types_info[1] === 'farmer') {
