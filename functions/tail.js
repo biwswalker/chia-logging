@@ -3,6 +3,7 @@ const path = require('path')
 
 const root_path = process.cwd().split(path.sep, 3).join('/')
 console.log(`root: ${root_path}/.chia/mainnet/log/debug.log`)
+// const options = { separator: /[\r]{0,1}\n/, fromBeginning: false, follow: true, logger: console }
 const tail = new Tail(`${root_path}/.chia/mainnet/log/debug.log`)
 
 const listen = () => {
@@ -11,12 +12,15 @@ const listen = () => {
         if (splited.length > 0) {
             const types_info = splited[0].split(' ')
             const data_info = splited[1]
-            if(types_info[1] === 'farmer') {
-                console.log(`FARMER: ${data_info}`)
-            } else if (types_info[1] === 'harvester'){
-                console.log(`HARVESTER: ${data_info}`)
-            } else if (types_info[1] === 'wallet'){
-                console.log(`WALLET: ${data_info}`)
+            const time = types_info[0]
+            const types = types_info[1]
+            const sub_type = types_info[3]
+            if (types === 'farmer') {
+                console.log(`FARMER: ${sub_type} | ${data_info}`)
+            } else if (types === 'harvester') {
+                console.log(`HARVESTER: ${sub_type} | ${data_info}`)
+            } else if (types === 'wallet') {
+                console.log(`WALLET: ${sub_type} | ${data_info}`)
             }
         } else {
             console.log(data.split(': INFO').map(text => text.trim()))
@@ -35,4 +39,5 @@ const unlisten = () => {
 module.exports = {
     listen,
     unlisten,
+    watch: tail.watch
 }
