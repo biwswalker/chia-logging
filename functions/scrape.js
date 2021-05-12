@@ -3,8 +3,6 @@ const puppeteer = require('puppeteer-extra')
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 
-const google_email = 'jennarong.sae@gmail.com'
-const google_password = 'biwswalker300537'
 const link = 'https://dashboard.chia.foxypool.io'
 
 const get_dashboard = () => {
