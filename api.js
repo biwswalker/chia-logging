@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit")
 // const gat_dashboard = require('./scrape')
 const logs = require('./functions/tail')
 const v1 = require('./v1')
+require("./db")
 
 const app = express()
 const server = http.createServer(app)

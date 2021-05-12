@@ -3,6 +3,8 @@ const path = require('path')
 const moment = require('moment')
 const _ = require('lodash')
 
+const wallet_query = require('../querys/wallet')
+
 const root_path = process.cwd().split(path.sep, 3).join('/')
 console.log(`root: ${root_path}/.chia/mainnet/log/debug.log`)
 // const options = { separator: /[\r]{0,1}\n/, fromBeginning: false, follow: true, logger: console }
@@ -26,15 +28,17 @@ const listen = () => {
                     console.log(`HARVESTER: ${sub_type} | ${data_info}`)
                 }
             } else if (types === 'wallet') {
-                console.log(`WALLET: ${sub_type} | ${data_info}`)
                 if (_.isEqual(sub_type, 'chia.wallet.wallet_state_manager')) {
                     if (data_info.includes('Confirmed balance amount is')) {
-                        const wallet_balance = data_info.split('Confirmed balance amount is')[1]
+                        const wallet_balance = data_info.split('Confirmed balance amount is')[1].trim()
                         // Wallet amount
-                        console.log('-----WALLET----- : ', wallet_balance)
+                        wallet_query.update_wallet(wallet_balance)
+                        console.log(`-----WALLET----- : 💲 update wallet > ${wallet_balance}`)
                     }
                 } else if (_.isEqual(sub_type, 'chia.wallet.wallet_blockchain')) {
                     console.log('-----BLOCKCHAIN----- : ', data_info)
+                } else {
+                    console.log(`WALLET: ${sub_type} | ${data_info}`)
                 }
             } else {
                 // console.log(`WALLET: ${sub_type} | ${data_info}`)

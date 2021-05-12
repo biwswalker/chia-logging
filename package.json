@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node api.js"
+    "start": "nodemon api.js"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +18,11 @@
     "helmet": "4.6.0",
     "lodash": "4.17.21",
     "moment": "2.29.1",
+    "nodemon": "2.0.7",
     "puppeteer": "9.1.1",
     "puppeteer-extra": "3.1.18",
     "puppeteer-extra-plugin-stealth": "2.7.8",
+    "sqlite3": "5.0.2",
     "tail": "2.2.2"
   }
 }
