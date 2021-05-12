@@ -41,7 +41,7 @@ const listen = () => {
                     console.log(`WALLET: ${sub_type} | ${data_info}`)
                 }
             } else {
-                console.log(`------------:${types} ${sub_type} | ${data_info}`)
+                console.log(`------------:${data}`)
             }
         } else {
             console.log(data.split(': INFO').map(text => text.trim()))
