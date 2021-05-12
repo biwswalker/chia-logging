@@ -20,17 +20,16 @@ router.get('/me', async (req, res) => {
     }
 })
 
-router.get('/unlisten-log', (req, res) => {
-    console.log('unlisten.')
-    logs.unlisten()
+router.get('/unlisten', (req, res) => {
+    console.log('unwatch.')
+    logs.unwatch()
     res.status(200).json({ status: 'Unlistened.' })
 })
 
-router.get('/listen-log', (req, res) => {
-    console.log('listen.')
+router.get('/listen', (req, res) => {
+    console.log('watch.')
     logs.watch()
     res.status(200).json({ status: 'Listened.' })
 })
-
 
 module.exports = router

@@ -52,13 +52,8 @@ const listen = () => {
     })
 }
 
-const unlisten = () => {
-    tail.unwatch()
-    console.log('unlisten.')
-}
-
 module.exports = {
     listen,
-    unlisten,
+    unwatch: tail.unwatch,
     watch: tail.watch
 }
