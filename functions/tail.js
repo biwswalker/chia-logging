@@ -33,7 +33,9 @@ const listen = () => {
                     const timespen = data_info.match(time_regex)[0]
                     const total_plot = data_info.match(total_plot_regex)[0]
                     const created_at = moment(time).format()
-                    insert_harvester_draw(plots, proofs, timespen, total_plot, created_at)
+                    if (Number(plots) > 0) {
+                        insert_harvester_draw(plots, proofs, timespen, total_plot, created_at)
+                    }
                     console.log(`-----HARVESTER----- : 🌾 update harvester draw > ${plots}`)
                 } else {
                     console.log(`HARVESTER: ${sub_type} | ${data_info}`)
