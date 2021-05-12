@@ -20,7 +20,24 @@ const database = new sqlite.Database(DBSOURCE, (err) => {
             if (err) {
                 console.log('Wallet already created database.')
             }
-        });
+        })
+
+    database.run(`
+    CREATE TABLE "harvester_draw" (
+        "id"	INTEGER NOT NULL UNIQUE AUTOINCREMENT,
+        "plots"     TEXT NOT NULL,
+        "proofs"    TEXT NOT NULL,
+        "time"  TEXT NOT NULL,
+        "draw_plots" TEXT NOT NULL,
+        "created_at" TEXT NOT NULL,
+        PRIMARY KEY("id")
+    );
+    `,
+        (err) => {
+            if (err) {
+                console.log('Harvester draw already created database.')
+            }
+        })
 })
 
 module.exports = database

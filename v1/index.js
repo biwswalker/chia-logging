@@ -1,5 +1,6 @@
 const express = require('express')
 const wallet_query = require('../querys/wallet')
+const harvester_draw_query = require('../querys/harvester_draw')
 const logs = require('../functions/tail')
 const router = express.Router()
 
@@ -10,9 +11,11 @@ router.get('/', (req, res) => {
 router.get('/me', async (req, res) => {
     try {
         const wallet = await wallet_query.get_wallet()
+        const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
         const response = {
             status: 200,
-            balance: wallet
+            wallet,
+            harvester_draw,
         }
         res.status(200).json(response)
     } catch (error) {

@@ -2,6 +2,7 @@ const Tail = require('tail').Tail
 const path = require('path')
 const moment = require('moment')
 const _ = require('lodash')
+const { insert_harvester_draw } = require('../querys/harvester_draw')
 
 const wallet_query = require('../querys/wallet')
 
@@ -23,7 +24,17 @@ const listen = () => {
                 console.log(`FARMER: ${sub_type} | ${data_info}`)
             } else if (types === 'harvester') {
                 if (_.isEqual(sub_type, 'chia.harvester.harvester')) {
-                    console.log(`FARM HARVESTER: ${moment(time).format('DD MM YYYY ::: HH:mm:ss')} ${sub_type} | ${data_info}`)
+                    const plots_regex = /\d+(?= plots were)+/g
+                    const proofs_regex = /(?<=Found )(.*\n?)(?= proofs)/g
+                    const time_regex = /(?<=Time: )(.*\n?)(?= s.)/g
+                    const total_plot_regex = /(?<=Total )(.*\n?)(?= plots)/g
+                    const plots = paragraph.match(plots_regex)[0]
+                    const proofs = paragraph.match(proofs_regex)[0]
+                    const timespen = paragraph.match(time_regex)[0]
+                    const total_plot = paragraph.match(total_plot_regex)[0]
+                    const created_at = moment(time).format()
+                    insert_harvester_draw(plots, proofs, timespen, total_plot, created_at)
+                    console.log(`-----HARVESTER----- : 🌾 update harvester draw > ${plots}`)
                 } else {
                     console.log(`HARVESTER: ${sub_type} | ${data_info}`)
                 }
