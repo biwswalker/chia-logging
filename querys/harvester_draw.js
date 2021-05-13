@@ -1,4 +1,3 @@
-const moment = require('moment')
 const database = require('../db')
 
 const insert_harvester_draw = (plots, proofs, time, draw_plots, created_at) => new Promise((resolve, reject) => {

@@ -1,4 +1,5 @@
 const express = require('express')
+const _ = require('lodash')
 const wallet_query = require('../querys/wallet')
 const harvester_draw_query = require('../querys/harvester_draw')
 const logs = require('../functions/tail')
@@ -12,8 +13,10 @@ router.get('/me', async (req, res) => {
     try {
         const wallet = await wallet_query.get_wallet()
         const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
+        const plots = _.max(harvester_draw.map(item => item.draw_plots))
         const response = {
             status: 200,
+            plots,
             wallet,
             harvester_draw,
         }
