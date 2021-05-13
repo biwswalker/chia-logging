@@ -15,7 +15,7 @@ const insert_harvester_draw = (plots, proofs, time, draw_plots, created_at) => n
 })
 
 const get_harvester_draw = (limit = 10) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM harvester_draw LIMIT ? ORDER BY id DESC`
+    const query = `SELECT * FROM harvester_draw ORDER BY id DESC LIMIT ?`
     database.all(query, [limit], (err, result) => {
         if (err) {
             return reject(err)
