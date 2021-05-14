@@ -1,5 +1,6 @@
 const express = require('express')
 const _ = require('lodash')
+const moment = require('moment')
 const wallet_query = require('../querys/wallet')
 const harvester_draw_query = require('../querys/harvester_draw')
 const plots_query = require('../querys/plots')
@@ -15,16 +16,22 @@ router.get('/me', async (req, res) => {
         const wallet = await wallet_query.get_wallet()
         const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
         const challenge = await harvester_draw_query.get_challenge_per_day(3)
+        const challenge_count = challenge.map(challenge => {
+            const count = challenge.total_plot
+            const date = moment(challenge.harvester_date, 'DD-MM-YYYY').format()
+            return { date, count }
+        })
         const plots = await plots_query.get_plots()
         const response = {
             status: 200,
             plots,
             wallet,
-            challenge_count: challenge.map(challenge => ({ count: challenge.total_plot, date: moment(harvester_date.harvester_date, 'DD-MM-YYYY').format()})),
+            challenge_count,
             harvester_draw,
         }
         res.status(200).json(response)
     } catch (error) {
+        console.log(error)
         res.status(400).json({ status: 400, error })
     }
 })
