@@ -38,7 +38,7 @@ const extract = (data, tag) => {
             if (_.isEqual(sub_type, 'chia.wallet.wallet_state_manager')) {
                 if (data_info.includes('Confirmed balance amount is')) {
                     const wallet_balance = data_info.split('Confirmed balance amount is')[1].trim()
-                    const acture = Number(wallet_balance | 0) / 1000000000
+                    const acture = Number(wallet_balance | 0) / 1000000000000
                     // Wallet amount
                     wallet_query.update_wallet(acture)
                     console.log(`-----WALLET----- : 💲 update wallet > ${wallet_balance}`)
