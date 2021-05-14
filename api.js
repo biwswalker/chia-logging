@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const http = require('http')
 const path = require("path")
@@ -5,6 +6,7 @@ const helmet = require('helmet')
 const rateLimit = require("express-rate-limit")
 const cors = require('cors')
 const logs = require('./functions/tail')
+const remote_logs = require('./functions/remote-tail')
 const v1 = require('./v1')
 require("./db")
 
@@ -30,6 +32,6 @@ app.use('/api/v1', v1)
 
 app.listen(5000, () => {
   console.log('Start server...')
-  console.log('listen chia log.')
   logs.listen()
+  remote_logs()
 })
