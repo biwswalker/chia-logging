@@ -32,8 +32,6 @@ app.use('/api/v1', v1)
 
 app.listen(5000, () => {
   console.log('Start server...')
-  console.log('listen chia log.')
-  console.log(process.env)
   logs.listen()
   remote_logs()
 })

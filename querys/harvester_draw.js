@@ -1,10 +1,10 @@
 const database = require('../db')
 
-const insert_harvester_draw = (plots, proofs, time, draw_plots, created_at) => new Promise((resolve, reject) => {
-    const query = `INSERT INTO harvester_draw (plots, proofs, time, draw_plots, created_at)
-    VALUES (?, ?, ?, ?, ?)
+const insert_harvester_draw = (plots, proofs, time, draw_plots, created_at, tag) => new Promise((resolve, reject) => {
+    const query = `INSERT INTO harvester_draw (plots, proofs, time, draw_plots, created_at, tag)
+    VALUES (?, ?, ?, ?, ?, ?)
     `
-    const seq_data = [plots, proofs, time, draw_plots, created_at]
+    const seq_data = [plots, proofs, time, draw_plots, created_at, tag]
     database.run(query, seq_data, (err, result) => {
         if (err) {
             return reject(err)

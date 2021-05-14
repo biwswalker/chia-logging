@@ -1,9 +1,10 @@
 const moment = require('moment')
 const _ = require('lodash')
 const wallet_query = require('../querys/wallet')
-const { insert_harvester_draw } = require('../querys/harvester_draw')
+const harvester_draw_query = require('../querys/harvester_draw')
+const plots_query = require('../querys/plots')
 
-const extract = (data) => {
+const extract = (data, tag) => {
     const splited = data.split(': INFO').map(text => text.trim())
     if (splited.length > 0) {
         const types_info = splited[0].split(' ')
@@ -25,9 +26,11 @@ const extract = (data) => {
                 const total_plot = data_info.match(total_plot_regex)[0]
                 const created_at = moment(time).format()
                 if (Number(plots) > 0) {
-                    insert_harvester_draw(plots, proofs, timespen, total_plot, created_at)
+                    harvester_draw_query.insert_harvester_draw(plots, proofs, timespen, total_plot, created_at, tag)
+                    console.log(`-----HARVESTER----- : 🌾 update harvester draw ${tag} > ${plots}`)
                 }
-                console.log(`-----HARVESTER----- : 🌾 update harvester draw > ${plots}`)
+                plots_query.update_plots(total_plot, tag)
+                console.log(`-----PLOTS----- : 🌾 update plot draw ${tag} > ${total_plot}`)
             } else {
                 console.log(`HARVESTER: ${sub_type} | ${data_info}`)
             }
@@ -35,8 +38,9 @@ const extract = (data) => {
             if (_.isEqual(sub_type, 'chia.wallet.wallet_state_manager')) {
                 if (data_info.includes('Confirmed balance amount is')) {
                     const wallet_balance = data_info.split('Confirmed balance amount is')[1].trim()
+                    const acture = Number(wallet_balance | 0) / 1000000000
                     // Wallet amount
-                    wallet_query.update_wallet(wallet_balance)
+                    wallet_query.update_wallet(acture)
                     console.log(`-----WALLET----- : 💲 update wallet > ${wallet_balance}`)
                 }
             } else if (_.isEqual(sub_type, 'chia.wallet.wallet_blockchain')) {

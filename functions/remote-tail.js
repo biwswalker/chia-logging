@@ -5,7 +5,7 @@ const run = (sshConfig, script) => new Promise((resolve, reject) => {
     let scriptOutput = ''
     const sshFtw = new SSH(sshConfig)
     sshFtw.exec(script,
-        { out: extract_log })
+        { out: (data) => extract_log(data, 'plotter') })
         .on('error', (err) => reject(err))
         .on('close', () => resolve(scriptOutput))
         .start()
