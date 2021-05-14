@@ -18,7 +18,7 @@ const database = new sqlite.Database(DBSOURCE, (err) => {
     `,
         (err) => {
             if (err) {
-                return console.log('Wallet already created database.')
+                console.log('Wallet already created database.')
             } else {
                 console.log('Created Wallet database.')
             }
@@ -37,9 +37,10 @@ const database = new sqlite.Database(DBSOURCE, (err) => {
     `,
         (err) => {
             if (err) {
-                return console.log('Harvester draw already created database.', err)
+                console.log('Harvester draw already created database.')
+            } else {
+                console.log('Created Harvester draw database.')
             }
-            console.log('Created Harvester draw database.')
         })
 })
 
