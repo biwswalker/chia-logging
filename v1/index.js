@@ -13,11 +13,13 @@ router.get('/me', async (req, res) => {
     try {
         const wallet = await wallet_query.get_wallet()
         const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
+        const challenge = await harvester_draw_query.get_challenge_per_day(3)
         const plots = _.max(harvester_draw.map(item => item.draw_plots))
         const response = {
             status: 200,
             plots,
             wallet,
+            challenge_count: challenge.map(challenge => ({ count: challenge.total_plot, date: moment(harvester_date.harvester_date, 'DD-MM-YYYY').format()})),
             harvester_draw,
         }
         res.status(200).json(response)
