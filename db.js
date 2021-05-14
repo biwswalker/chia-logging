@@ -43,7 +43,7 @@ const database = new sqlite.Database(DBSOURCE, (err) => {
     database.run(`
     CREATE TABLE "harvester_draw" (
         "id"	INTEGER NOT NULL UNIQUE,
-        "tag"       TEXT,
+        "tag"       TEXT NOT NULL,
         "plots"     TEXT NOT NULL,
         "proofs"    TEXT NOT NULL,
         "time"      TEXT NOT NULL,
