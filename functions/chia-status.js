@@ -40,7 +40,7 @@ const get_farming_info = () => new Promise((resolve, reject) => {
     });
 
     ls.stderr.on("data", err => {
-        reject(err)
+        reject(err.toString())
     });
 
     ls.on('error', (error) => {
