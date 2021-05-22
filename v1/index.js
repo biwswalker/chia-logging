@@ -3,6 +3,7 @@ const _ = require('lodash')
 const wallet_query = require('../querys/wallet')
 const harvester_draw_query = require('../querys/harvester_draw')
 const plots_query = require('../querys/plots')
+const get_farm_info = require('../functions/chia-status')
 const logs = require('../functions/tail')
 const router = express.Router()
 
@@ -12,12 +13,14 @@ router.get('/', (req, res) => {
 
 router.get('/me', async (req, res) => {
     try {
+        const farm_status = await get_farm_info()
         const wallet = await wallet_query.get_wallet()
         const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
         const challenge = await harvester_draw_query.get_challenge_per_day(3)
         const plots = await plots_query.get_plots()
         const response = {
             status: 200,
+            farm_status,
             plots,
             wallet,
             challenge_count: challenge.map(challenge => ({ count: challenge.total_plot, date: moment(harvester_date.harvester_date, 'DD-MM-YYYY').format()})),
