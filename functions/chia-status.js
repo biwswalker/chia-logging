@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 const _ = require('lodash')
 
 const get_farming_info = () => new Promise((resolve, reject) => {
-    const ls = spawn(`cd ${process.env.CHIA_LOCATION} && . activate && chia farm summary`, {
+    const ls = spawn(`cd ${process.env.CHIA_LOCATION} && . ./activate && chia farm summary`, {
         shell: true,
 
     });
