@@ -13,7 +13,7 @@ const insert_harvester_draw = (plots, proofs, time, draw_plots, created_at, tag)
     })
 })
 
-const get_harvester_draw = (limit = 10) => new Promise((resolve, reject) => {
+const get_harvester_draw = (limit = 5) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM harvester_draw ORDER BY id DESC LIMIT ?`
     database.all(query, [limit], (err, result) => {
         if (err) {
@@ -25,8 +25,8 @@ const get_harvester_draw = (limit = 10) => new Promise((resolve, reject) => {
 
 const get_challenge_per_day = (limit = 3) => new Promise((resolve, reject) => {
     const query = `
-    SELECT strftime('%d-%m-%Y', created_at) as harvester_date, SUM(plots) as total_plot 
-    FROM harvester_draw GROUP BY harvester_date LIMIT ?
+    SELECT strftime('%d-%m-%Y', created_at) as harvester_date, SUM(plots) as total_plot, id
+    FROM harvester_draw GROUP BY harvester_date ORDER BY id DESC LIMIT ?
     `
     database.all(query, [limit], (err, result) => {
         if (err) {
