@@ -26,7 +26,7 @@ const get_harvester_draw = (limit = 10) => new Promise((resolve, reject) => {
 const get_challenge_per_day = (limit = 3) => new Promise((resolve, reject) => {
     const query = `
     SELECT strftime('%d-%m-%Y', created_at) as harvester_date, SUM(plots) as total_plot 
-    FROM harvester_draw GROUP BY harvester_date ORDER BY harvester_date DESC LIMIT ?
+    FROM harvester_draw GROUP BY harvester_date LIMIT ?
     `
     database.all(query, [limit], (err, result) => {
         if (err) {

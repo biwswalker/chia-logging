@@ -16,7 +16,7 @@ router.get('/me', async (req, res) => {
     try {
         const farm_status = await get_farm_info()
         const wallet = await wallet_query.get_wallet()
-        const harvester_draw = await harvester_draw_query.get_harvester_draw(10)
+        const harvester_draw = await harvester_draw_query.get_harvester_draw(5)
         const challenge = await harvester_draw_query.get_challenge_per_day(3)
         const challenge_count = challenge.map(challenge => {
             const count = challenge.total_plot
