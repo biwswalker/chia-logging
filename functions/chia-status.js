@@ -19,15 +19,18 @@ const get_farming_info = () => new Promise((resolve, reject) => {
         const block_rewards_regex = /(?<=Block rewards:)(.*\n?)(?=\n)/g
         const last_height_farmed_regex = /(?<=Last height farmed:)(.*\n?)(?=\n)/g
         const network_space_regex = /(?<=Estimated network space:)(.*\n?)(?=\n)/g
-        // const plot_count_regex = /(?<=Plot count:)(.*\n?)(?=\n)/g
-        // const total_size_regex = /(?<=Total size of plots:)(.*\n?)(?=\n)/g
-        // const expected_time_to_win_regex = /(?<=Expected time to win:)(.*\n?)(?=\n)/g
+        const plot_count_regex = /(?<=Plot count:)(.*\n?)(?=\n)/g
+        const total_size_regex = /(?<=Total size of plots:)(.*\n?)(?=\n)/g
+        const expected_time_to_win_regex = /(?<=Expected time to win:)(.*\n?)(?=\n)/g
         const farm_status = _.get(string_data.match(farm_status_regex), '0', '').trim()
         const total_chia_farmed = _.get(string_data.match(total_chia_farmed_regex), '0', '').trim()
         const user_transaction_fees = _.get(string_data.match(user_transaction_fees_regex), '0', '').trim()
         const block_rewards = _.get(string_data.match(block_rewards_regex), '0', '').trim()
         const last_height_farmed = _.get(string_data.match(last_height_farmed_regex), '0', '').trim()
         const network_space = _.get(string_data.match(network_space_regex), '0', '').trim()
+        const plot_count = _.get(string_data.match(plot_count_regex), '0', '').trim()
+        const total_size = _.get(string_data.match(total_size_regex), '0', '').trim()
+        const expected_time_to_win = _.get(string_data.match(expected_time_to_win_regex), '0', '').trim()
 
         resolve({
             farm_status,
@@ -36,6 +39,9 @@ const get_farming_info = () => new Promise((resolve, reject) => {
             block_rewards,
             last_height_farmed,
             network_space,
+            plot_count,
+            total_size,
+            expected_time_to_win,
         })
     });
 
