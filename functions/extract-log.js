@@ -3,6 +3,7 @@ const _ = require('lodash')
 const wallet_query = require('../querys/wallet')
 const harvester_draw_query = require('../querys/harvester_draw')
 const plots_query = require('../querys/plots')
+const discord = require('./discord')
 
 const extract = (data, tag) => {
     const splited = data.split(': INFO').map(text => text.trim())
@@ -28,6 +29,9 @@ const extract = (data, tag) => {
                 if (Number(plots) > 0) {
                     harvester_draw_query.insert_harvester_draw(plots, proofs, timespen, total_plot, created_at, tag)
                     console.log(`-----HARVESTER----- : 🌾 update harvester draw ${tag} > ${plots}`)
+                    if (Number(proofs) > 0) {
+                        discord(proofs, formated_created_at, timespen)
+                    }
                 }
                 plots_query.update_plots(total_plot, tag)
                 console.log(`-----PLOTS----- : 🌾 update plot draw ${tag} > ${total_plot}`)
